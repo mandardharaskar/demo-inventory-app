@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_my_amazon.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_my_amazon.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://tvrmegghgwxava:8efca20f92d35781ac3109654a2e21026881028af606e0074558ef44a6e24ae0@ec2-18-235-20-228.compute-1.amazonaws.com:5432/dce8mtun54jofv'
 db = SQLAlchemy(app)
 
 
