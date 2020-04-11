@@ -2,9 +2,9 @@ from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-My_Amazon = Flask(__name__)
-My_Amazon.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_my_amazon.db'
-db = SQLAlchemy(My_Amazon)
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_my_amazon.db'
+db = SQLAlchemy(app)
 
 
 class Orders(db.Model):
@@ -19,7 +19,7 @@ class Orders(db.Model):
         return '<Product %r>' % self.id
 
 
-@My_Amazon.route('/', methods=['Post', 'GET'])
+@app.route('/', methods=['Post', 'GET'])
 def login():
     error = None
     if request.method == 'POST':
@@ -30,7 +30,7 @@ def login():
     return render_template('login.html', error=error)
 
 
-@My_Amazon.route('/index', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         product_name = request.form['name']
@@ -55,7 +55,7 @@ def index():
         return render_template('index.html', products=products)
 
 
-@My_Amazon.route('/delete/<int:id>')
+@app.route('/delete/<int:id>')
 def delete(id):
     product_to_delete = Orders.query.get_or_404(id)
 
@@ -67,7 +67,7 @@ def delete(id):
         return 'There was a problem deleting your product'
 
 
-@My_Amazon.route('/update/<int:id>', methods=['GET', 'POST'])
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     product = Orders.query.get_or_404(id)
 
@@ -87,4 +87,4 @@ def update(id):
 
 
 if __name__ == '__main__':
-    My_Amazon.run(debug=True)
+    app.run(debug=True)
