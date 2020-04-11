@@ -46,7 +46,7 @@ def index():
         try:
             db.session.add(new_product)
             db.session.commit()
-            return redirect('/')
+            return redirect('/index')
         except:
             return 'There is an issue adding your product'
 
@@ -62,7 +62,7 @@ def delete(id):
     try:
         db.session.delete(product_to_delete)
         db.session.commit()
-        return redirect('/')
+        return redirect('/index')
     except:
         return 'There was a problem deleting your product'
 
@@ -79,7 +79,7 @@ def update(id):
 
         try:
             db.session.commit()
-            return redirect('/')
+            return redirect('/index')
         except:
             return 'There was a issue updating your product'
     else:
