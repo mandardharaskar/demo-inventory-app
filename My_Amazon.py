@@ -20,6 +20,17 @@ class Orders(db.Model):
 
 
 @My_Amazon.route('/', methods=['Post', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid credentials. Please try again.'
+        else:
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
+
+
+@My_Amazon.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         product_name = request.form['name']
@@ -73,17 +84,6 @@ def update(id):
             return 'There was a issue updating your product'
     else:
         return render_template('update.html', product=product)
-
-
-@My_Amazon.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password']:
-            error = 'Invalid credentials. Please try again.'
-        else:
-            return redirect(url_for('index'))
-    return render_template('login.html', error=error)
 
 
 if __name__ == '__main__':
