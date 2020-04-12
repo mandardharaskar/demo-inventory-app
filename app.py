@@ -1,10 +1,11 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_my_amazon.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://mnxmhrmtdjsdow:e2cf28a94cf5625b6e3ca63379d54e891954dbecbcef5d5768353c4d858a1891@ec2-18-210-51-239.compute-1.amazonaws.com:5432/d76cm3do66m0uv'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 
